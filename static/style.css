@@ -246,3 +246,32 @@ label{display:block;font-size:13px;font-weight:700;color:#d5e9eb}input,textarea,
   }
 
 }
+
+/* MONEYWISE — MOBILE DISPLAY FIXES */
+
+@media (max-width: 900px) {
+
+  /* Make the three-line menu icon black */
+  .mobile-menu {
+    color: #111827 !important;
+    -webkit-text-fill-color: #111827 !important;
+    background: transparent !important;
+  }
+
+  /* Left-align Next payday and Next bill date */
+  .sidebar input[type="date"] {
+    text-align: left !important;
+    text-align-last: left !important;
+    padding-left: 14px !important;
+  }
+
+  /* Fix date alignment specifically on iPhone Safari */
+  .sidebar input[type="date"]::-webkit-date-and-time-value {
+    text-align: left !important;
+    width: 100%;
+  }
+
+  .sidebar input[type="date"]::-webkit-datetime-edit {
+    text-align: left !important;
+  }
+}
