@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#081521">
+  <meta name="description" content="MoneyWise — student-first financial security and decision simulator.">
+  <title>MoneyWise — Pay or Pause</title>
+  <link rel="icon" type="image/svg+xml" href="/static/logo.svg">
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+  <div class="brand">
+  <div class="brand-mark">
+    <img src="/static/logo.svg" alt="MoneyWise Growth Chart Logo">
+  </div>
+  <div>
+    <div class="brand-name">MoneyWise</div>
+    <div class="brand-sub">STUDENT FINTECH LAB</div>
+  </div>
+</div>
+    <nav aria-label="Main navigation" id="navigation">
+      <button class="nav-link active" data-page="overview"><span>⌂</span> Overview</button>
+      <button class="nav-link" data-page="payment"><span>◇</span> Pay or Pause</button>
+      <button class="nav-link" data-page="purchase"><span>▣</span> Can I Afford It?</button>
+      <button class="nav-link" data-page="transactions"><span>◷</span> Money Leak Detector</button>
+      <button class="nav-link" data-page="coach"><span>✳</span> AI Goal Coach</button>
+    </nav>
+    <div class="side-label">YOUR FINANCIAL PICTURE</div>
+    <form id="financial-form" class="financial-form" autocomplete="off">
+      <label>Current balance ($)<input type="number" name="balance" min="0" step="0.01" value="850" required></label>
+      <label>Paycheck amount ($)<input type="number" name="paycheck" min="0" step="0.01" value="500" required></label>
+      <label>Next payday<input type="date" name="payday" required></label>
+      <label>Pay frequency<select name="cadence"><option value="7">Every week</option><option value="14" selected>Every 2 weeks</option><option value="30">Every 30 days</option></select></label>
+      <label>Monthly rent & fixed bills ($)<input type="number" name="rent" min="0" step="0.01" value="600" required></label>
+      <label>Next bill date<input type="date" name="rent_date" required></label>
+      <label>Weekly essentials ($)<input type="number" name="groceries" min="0" step="0.01" value="50" required></label>
+      <label>Monthly subscriptions ($)<input type="number" name="subscriptions" min="0" step="0.01" value="55" required></label>
+      <button class="btn btn-primary full" type="submit">Update financial picture ↗</button>
+    </form>
+    <div class="side-foot"><span class="status-dot"></span> <span id="backend-status">Connecting to Python...</span><p>Educational prototype · No bank connection</p></div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar"><button class="icon-button mobile-menu" id="open-menu" aria-label="Open menu">☰</button><div class="crumb">WORKSPACE <span>/</span> <b id="page-crumb">Overview</b></div><div class="top-right"><span class="pill"><span class="status-dot"></span> LOCAL DEMO</span></div></header>
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+    <section class="page" id="page-overview">
+      <div class="hero"><div class="eyebrow">YOUR MONEY, YOUR NEXT MOVE</div><h1>Make every dollar<br><em>work smarter.</em></h1><p>Spot risky payment requests. Understand your future balance. Find savings hiding in plain sight.</p><button class="btn btn-light" data-jump="payment">Check a payment <span>↗</span></button><div class="hero-orb" aria-hidden="true">◎</div></div>
+      <div class="section-head"><div><h2>Your financial snapshot</h2><p>Based on the demo assumptions and financial inputs in the sidebar.</p></div><span class="muted tiny">UPDATED AS YOU GO</span></div>
+      <div class="metrics four">
+        <div class="metric"><div class="metric-label">Available balance</div><div class="metric-value" id="ov-balance">—</div><div class="metric-foot">Entered today</div></div>
+        <div class="metric"><div class="metric-label">Lowest projected</div><div class="metric-value" id="ov-lowest">—</div><div class="metric-foot">In payment scenario</div></div>
+        <div class="metric"><div class="metric-label">Payment warnings</div><div class="metric-value" id="ov-warnings">—</div><div class="metric-foot">Rule-based indicators</div></div>
+        <div class="metric"><div class="metric-label">Potential savings</div><div class="metric-value positive" id="ov-savings">$0.00</div><div class="metric-foot">Per month, simulated</div></div>
+      </div>
+      <div class="split two overview-grid"><div class="panel"><div class="panel-top"><span class="overline">PAYMENT SECURITY</span><span class="badge amber">CHECK FIRST</span></div><h3>Not every urgent message is real.</h3><p>Paste a payment request and we'll explain warning signs without visiting the link.</p><div class="panel-action"><button class="text-btn" data-jump="payment">Open Pay or Pause →</button></div></div><div class="panel"><div class="panel-top"><span class="overline">SMART SPENDING</span><span class="badge teal">PLAN AHEAD</span></div><h3>Can you afford that purchase?</h3><p>See what happens to your balance if you buy now, wait, or choose a lower-cost option.</p><div class="panel-action"><button class="text-btn" data-jump="purchase">Compare scenarios →</button></div></div></div>
+      <div class="notice subtle"><strong>How to use MoneyWise:</strong> Start with the financial picture on the left, explore Pay or Pause, load the demo transactions, then see the impact of selected savings in Can I Afford It?.</div>
+    </section>
+
+    <section class="page" id="page-payment" hidden>
+      <div class="heading"><div class="eyebrow">01 / SECURITY + CASH FLOW</div><h1>Pay or Pause<span class="accent">.</span></h1><p>Review a payment request and understand what paying now could mean for your bills.</p></div>
+      <div class="panel"><div class="panel-top"><h2>Payment request</h2><span class="badge muted-badge">Message & link analysis</span></div>
+        <div class="split two"><label>Message you received<textarea id="pay-message" rows="4">URGENT! Your college payment is overdue. Pay $450 immediately to avoid account suspension.</textarea></label><div class="stack"><label>Payment amount ($)<input id="pay-amount" type="number" min="0" step="0.01" value="450"></label><label>Payment link (optional)<input id="pay-link" type="text" placeholder="https://example.edu/payment"></label></div></div>
+        <div class="control-row"><label>Forecast period<select id="pay-days"><option value="30">30 days</option><option value="60">60 days</option><option value="90">90 days</option></select></label><button class="btn btn-primary" id="analyze-payment">Analyze payment ↗</button></div>
+      </div>
+      <div class="notice warning" id="risk-result">Loading message analysis...</div><div id="warning-list" class="warning-list"></div>
+      <div class="section-head"><div><h2>Financial consequences</h2><p>Compare paying today versus paying on your next payday.</p></div></div>
+      <div class="metrics three"><div class="metric"><div class="metric-label">Balance today</div><div id="pay-current" class="metric-value">—</div></div><div class="metric"><div class="metric-label">Lowest if paid today</div><div id="pay-min" class="metric-value">—</div></div><div class="metric"><div class="metric-label">Balance at period end</div><div id="pay-end" class="metric-value">—</div></div></div>
+      <div class="panel"><div class="panel-top"><h3>Cash balance forecast</h3><span class="muted tiny">INCOME & BILLS INCLUDED</span></div><div id="pay-chart" class="chart"></div><div id="pay-tip" class="insight"></div></div>
+    </section>
+
+    <section class="page" id="page-purchase" hidden>
+      <div class="heading"><div class="eyebrow">02 / FINANCIAL DECISIONS</div><h1>Can I Afford It<span class="accent">?</span></h1><p>Don't just ask if you have enough today. See how a purchase affects your future.</p></div>
+      <div class="panel"><div class="split three"><label>Planned purchase ($)<input type="number" id="purchase-price" min="0" step="0.01" value="500"></label><label>Cheaper alternative ($)<input type="number" id="purchase-cheaper" min="0" step="0.01" value="250"></label><label>Forecast period<select id="purchase-days"><option value="30">30 days</option><option value="60" selected>60 days</option><option value="90">90 days</option></select></label></div>
+        <label class="checkbox-row"><input type="checkbox" id="include-savings"><span>Include subscriptions selected for cancellation in Money Leak Detector</span></label>
+        <div class="control-row end"><button class="btn btn-primary" id="compare-purchase">Compare my options ↗</button></div>
+      </div>
+      <div class="notice subtle" id="purchase-note">Loading comparison...</div>
+      <div class="metrics three"><div class="metric"><div class="metric-label">Buy now · lowest balance</div><div class="metric-value" id="buy-now-min">—</div></div><div class="metric"><div class="metric-label">Buy on payday · lowest</div><div class="metric-value" id="buy-later-min">—</div></div><div class="metric"><div class="metric-label">Cheaper option · lowest</div><div class="metric-value" id="buy-cheaper-min">—</div></div></div>
+      <div class="panel"><div class="panel-top"><h3>See your future balance</h3><span class="muted tiny">THREE SCENARIOS</span></div><div id="purchase-chart" class="chart"></div></div>
+      <div class="panel accent-panel"><div class="panel-top"><h3>What do subscription savings change?</h3><span class="badge teal">THE MONEYWISE DIFFERENCE</span></div><div class="metrics three embedded"><div class="metric"><div class="metric-label">Final balance without savings</div><div class="metric-value" id="save-before">—</div></div><div class="metric"><div class="metric-label">Final balance with selected savings</div><div class="metric-value" id="save-after">—</div></div><div class="metric"><div class="metric-label">Balance improvement</div><div class="metric-value positive" id="save-diff">—</div></div></div><p class="muted" id="save-explain"></p></div>
+    </section>
+
+    <section class="page" id="page-transactions" hidden>
+      <div class="heading"><div class="eyebrow">03 / SPENDING INTELLIGENCE</div><h1>Money Leak Detector<span class="accent">.</span></h1><p>Find possible recurring charges, price increases, duplicate payments, and expenses worth reviewing.</p></div>
+      <div class="panel"><div class="panel-top"><h2>Analyze transactions</h2><span class="badge muted-badge">CSV · no bank login</span></div><div class="upload-row"><label class="upload-box">Choose a bank CSV <input type="file" id="csv-file" accept=".csv,text/csv"><span>Columns: date, description, amount · purchases negative</span></label><button class="btn btn-outline" id="load-demo">Use fictional demo data</button></div><p id="csv-file-name" class="muted tiny">The demo dataset is loaded automatically.</p></div>
+      <div class="metrics three"><div class="metric"><div class="metric-label">Transactions analyzed</div><div class="metric-value" id="tx-count">—</div></div><div class="metric"><div class="metric-label">Total debits in file</div><div class="metric-value" id="tx-spent">—</div></div><div class="metric"><div class="metric-label">Estimated monthly recurring</div><div class="metric-value" id="tx-monthly">—</div></div></div>
+      <div class="panel"><div class="panel-top"><h3>Possible recurring subscriptions</h3><span class="muted tiny">SELECT OPTIONAL CHARGES TO SIMULATE</span></div><div class="table-wrap"><table><thead><tr><th>Merchant</th><th>Latest charge</th><th>Change</th><th>Occurrences</th><th>Select</th></tr></thead><tbody id="recurring-body"><tr><td colspan="5">Loading data...</td></tr></tbody></table></div><div class="saving-strip"><div><span class="overline">HYPOTHETICAL MONTHLY SAVINGS</span><strong id="selected-savings">$0.00</strong></div><button class="text-btn" data-jump="purchase">See how this affects a purchase →</button></div><p class="muted tiny">Simulation only. MoneyWise does not cancel any subscriptions. Savings are capped at the entered monthly subscription budget.</p></div>
+      <div class="split two"><div class="panel"><h3>Possible duplicate charges</h3><div id="duplicate-list" class="flag-list">—</div></div><div class="panel"><h3>Unusually large transactions</h3><div id="unusual-list" class="flag-list">—</div></div></div>
+    </section>
+
+    <section class="page" id="page-coach" hidden>
+      <div class="heading"><div class="eyebrow">04 / YOUR FINANCIAL COPILOT</div><h1>AI Goal Coach<span class="accent">.</span></h1><p>Turn spending insights into a savings plan you can actually evaluate.</p></div>
+      <div class="panel"><div class="panel-top"><h2>Your goal</h2><span class="badge teal" id="ai-mode">OFFLINE COACH</span></div><div class="split three"><label>Goal amount ($)<input type="number" id="goal-target" min="1" value="1200" step="0.01"></label><label>Already saved ($)<input type="number" id="goal-saved" min="0" value="200" step="0.01"></label><label>Months remaining<select id="goal-months"><option value="2">2 months</option><option value="3">3 months</option><option value="4" selected>4 months</option><option value="6">6 months</option><option value="9">9 months</option><option value="12">12 months</option></select></label></div><div class="control-row end"><button id="update-goal" class="btn btn-primary">Calculate my plan ↗</button></div></div>
+      <div class="metrics three"><div class="metric"><div class="metric-label">Still needed</div><div id="goal-needed" class="metric-value">—</div></div><div class="metric"><div class="metric-label">Save each month</div><div id="goal-monthly" class="metric-value">—</div></div><div class="metric"><div class="metric-label">Monthly headroom</div><div id="goal-headroom" class="metric-value">—</div></div></div>
+      <div class="panel"><div class="panel-top"><h3>Your savings progress</h3><span id="goal-progress-label" class="muted">—</span></div><div class="progress-track"><div id="goal-progress" class="progress-fill"></div></div><div class="insight" id="goal-recommendation">Loading a savings plan...</div></div>
+      <div class="panel chat-panel"><div class="panel-top"><h3>Talk to MoneyWise</h3><button class="text-btn" id="clear-chat">Clear conversation</button></div><div class="chat-messages" id="chat-messages" aria-live="polite"><div class="bubble assistant">Hi! I'm your MoneyWise coach. Try asking how to save for a laptop, whether a payment fits your budget, or what your subscription changes could save.</div></div><form id="chat-form" class="chat-composer"><input id="chat-question" maxlength="600" placeholder="How can I save $1,200 for a laptop?" aria-label="Ask the goal coach" required><button class="btn btn-primary" type="submit">Send ↗</button></form><div id="chat-mode-note" class="muted tiny">No AI key? The offline coach still uses the Python calculations.</div></div>
+    </section>
+
+    <footer class="footer">MONEYWISE • STUDENT HACKATHON PROTOTYPE <span>Educational forecasts · No bank connection · Suspicious ≠ proven fraud</span></footer>
+  </main>
+</div>
+</body>
+</html>

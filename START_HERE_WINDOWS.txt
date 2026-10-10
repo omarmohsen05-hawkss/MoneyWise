@@ -1,0 +1,43 @@
+MONEYWISE WEB — START HERE (Windows + VS Code)
+
+Please keep your original Streamlit MoneyWise project. This is a NEW web frontend
+with the same reusable Python calculations. It does NOT require Streamlit.
+
+1. Extract ZIP into C:\Users\mirom\ (not inside an existing MoneyWise folder).
+   Open VS Code > File > Open Folder > C:\Users\mirom\MoneyWiseWeb.
+   Confirm that "server.py" and "requirements.txt" are visible directly in VS Code.
+
+2. VS Code > Terminal > New Terminal; run these commands ONE BY ONE:
+
+   Get-ChildItem -Name
+
+   py -m venv .venv
+
+   .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+
+   .\.venv\Scripts\python.exe -m uvicorn server:app --reload
+
+3. Open http://127.0.0.1:8000
+
+4. Test the five left-side pages. Demo bank CSV loads automatically.
+
+5. Optional LIVE AI: Create a file named .env in this folder (don't upload it)
+   with the following two lines:
+
+   OPENAI_API_KEY=YOUR_REAL_KEY
+   OPENAI_MODEL=gpt-4.1-mini
+
+   Stop server (Ctrl+C) then restart. No API key = offline Python coach.
+   API service usage may cost money separately from your ChatGPT plan.
+
+IMPORTANT:
+- Never enter or upload real bank passwords, statements, API keys or personal
+  data for a public hackathon demo.
+- Scam warnings are not fraud confirmations.
+- Payment forecasts assume consistent income/expenses.
+- No subscriptions are actually canceled and no money is transferred.
+- If the terminal can't find requirements.txt, you are in the wrong folder.
+  Run: Get-ChildItem -Recurse -Filter server.py -File | Select-Object -ExpandProperty FullName
+  Then: cd "FULL_PATH'S_PARENT_DIRECTORY"
+- Use ONE terminal, ONE server. http://127.0.0.1:8000 is the new web app;
+  your original Streamlit app is http://localhost:8501.
