@@ -53,6 +53,23 @@ async function sendChat(q){const f=goalInput();const p=paymentInput();const t=st
 function dateSetup(){document.querySelector('[name="payday"]').value=futureDate(10);document.querySelector('[name="rent_date"]').value=futureDate(7)}
 async function init(){dateSetup();document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.page)));document.querySelectorAll('[data-jump]').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.jump)));
   $('open-menu').addEventListener('click',()=>$('sidebar').classList.toggle('open'));
+  
+/* Close mobile menu when clicking outside */
+
+document.addEventListener('click', (event) => {
+    const sidebar = document.getElementById('sidebar');
+    const menuButton = document.getElementById('open-menu');
+
+    if (
+        sidebar &&
+        sidebar.classList.contains('open') &&
+        !sidebar.contains(event.target) &&
+        !menuButton?.contains(event.target)
+    ) {
+        sidebar.classList.remove('open');
+    }
+});
+
   $('financial-form').addEventListener('submit',async e=>{e.preventDefault();updateSavings();await refreshAll();toast('Financial estimates updated.')});
   $('analyze-payment').addEventListener('click',async()=>{try{await refreshPayment();refreshOverview()}catch(e){toast(e.message)}});
   $('compare-purchase').addEventListener('click',async()=>{try{await refreshPurchase()}catch(e){toast(e.message)}});

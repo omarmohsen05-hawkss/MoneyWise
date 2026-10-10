@@ -192,3 +192,57 @@ label{display:block;font-size:13px;font-weight:700;color:#d5e9eb}input,textarea,
 .metrics.embedded > .metric { background: #ffffff !important; border: 1px solid #cbd5e1 !important; color: #111827 !important; }
 
 .metrics.embedded > .metric .metric-label, .metrics.embedded > .metric .metric-value { color: #111827 !important; }
+
+/* MONEYWISE — AI GOAL COACH TEXT COLOR FIX */
+
+/* top assistant message bubble */
+#page-coach .chat-message,
+#page-coach .chat-message p,
+#page-coach .chat-message div {
+  color: #ffffff !important;
+}
+
+/* user input box text */
+#page-coach textarea,
+#page-coach input[type="text"] {
+  color: #ffffff !important;
+}
+
+/* placeholder text inside the input */
+#page-coach textarea::placeholder,
+#page-coach input[type="text"]::placeholder {
+  color: #dbeafe !important;
+  opacity: 1 !important;
+}
+
+/* if the response/output area uses dark boxes */
+#page-coach .panel textarea,
+#page-coach .panel input,
+#page-coach .panel .bubble,
+#page-coach .panel .message,
+#page-coach .panel .assistant-message {
+  color: #ffffff !important;
+}
+
+/* MONEYWISE — MOBILE SLIDING SIDEBAR */
+
+@media (max-width: 900px) {
+
+  .sidebar {
+    display: block;
+    transform: translateX(-105%);
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      transform 0.3s ease,
+      visibility 0.3s ease;
+  }
+
+  .sidebar.open {
+    display: block;
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+}
