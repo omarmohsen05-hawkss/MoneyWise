@@ -154,3 +154,37 @@ label{display:block;font-size:13px;font-weight:700;color:#d5e9eb}input,textarea,
 .page .heading > p {
   color: #111827 !important;
 }
+
+/* MONEYWISE — WHITE CSV UPLOAD AREA */
+
+.upload-box {
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #111827 !important;
+}
+
+.upload-box label,
+.upload-box p,
+.upload-box span,
+.upload-box small {
+  color: #111827 !important;
+}
+
+.upload-box input[type="file"] {
+  color: #111827 !important;
+  background: #ffffff !important;
+}
+
+.upload-box input[type="file"]::file-selector-button {
+  background: #ffffff !important;
+  color: #111827 !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.upload-box input[type="file"]::file-selector-button:hover {
+  background: #eff6ff !important;
+}
