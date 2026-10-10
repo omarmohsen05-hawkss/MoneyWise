@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="shell">
-  <aside class="sidebar">
+  <aside class="sidebar" id="sidebar">
   <div class="brand">
   <div class="brand-mark">
     <img src="/static/logo.svg" alt="MoneyWise Growth Chart Logo">
@@ -82,8 +82,41 @@
       <div class="notice subtle" id="purchase-note">Loading comparison...</div>
       <div class="metrics three"><div class="metric"><div class="metric-label">Buy now · lowest balance</div><div class="metric-value" id="buy-now-min">—</div></div><div class="metric"><div class="metric-label">Buy on payday · lowest</div><div class="metric-value" id="buy-later-min">—</div></div><div class="metric"><div class="metric-label">Cheaper option · lowest</div><div class="metric-value" id="buy-cheaper-min">—</div></div></div>
       <div class="panel"><div class="panel-top"><h3>See your future balance</h3><span class="muted tiny">THREE SCENARIOS</span></div><div id="purchase-chart" class="chart"></div></div>
-      <div class="panel accent-panel"><div class="panel-top"><h3>What do subscription savings change?</h3><span class="badge teal">THE MONEYWISE DIFFERENCE</span></div><div class="metrics three embedded"><div class="metric"><div class="metric-label">Final balance without savings</div><div class="metric-value" id="save-before">—</div></div><div class="metric"><div class="metric-label">Final balance with selected savings</div><div class="metric-value" id="save-after">—</div></div><div class="metric"><div class="metric-label">Balance improvement</div><div class="metric-value positive" id="save-diff">—</div></div></div><p class="muted" id="save-explain"></p></div>
-    </section>
+
+<div class="panel accent-panel">
+  <div class="panel-top">
+    <h3>What do subscription savings change?</h3>
+    <span class="badge teal">THE MONEYWISE DIFFERENCE</span>
+  </div>
+
+  <div class="metrics three embedded">
+
+    <div class="metric" style="background:#FFFFFF !important; border:1px solid #CBD5E1 !important; color:#111827 !important;">
+      <div class="metric-label" style="color:#111827 !important;">
+        Final balance without savings
+      </div>
+      <div class="metric-value" id="save-before" style="color:#111827 !important;">—</div>
+    </div>
+
+    <div class="metric" style="background:#FFFFFF !important; border:1px solid #CBD5E1 !important; color:#111827 !important;">
+      <div class="metric-label" style="color:#111827 !important;">
+        Final balance with selected savings
+      </div>
+      <div class="metric-value" id="save-after" style="color:#111827 !important;">—</div>
+    </div>
+
+    <div class="metric" style="background:#FFFFFF !important; border:1px solid #CBD5E1 !important; color:#111827 !important;">
+      <div class="metric-label" style="color:#111827 !important;">
+        Balance improvement
+      </div>
+      <div class="metric-value positive" id="save-diff" style="color:#111827 !important;">—</div>
+    </div>
+
+  </div>
+
+  <p class="muted" id="save-explain"></p>
+</div>
+
 
     <section class="page" id="page-transactions" hidden>
       <div class="heading"><div class="eyebrow">03 / SPENDING INTELLIGENCE</div><h1>Money Leak Detector<span class="accent">.</span></h1><p>Find possible recurring charges, price increases, duplicate payments, and expenses worth reviewing.</p></div>
