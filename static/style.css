@@ -188,3 +188,7 @@ label{display:block;font-size:13px;font-weight:700;color:#d5e9eb}input,textarea,
 .upload-box input[type="file"]::file-selector-button:hover {
   background: #eff6ff !important;
 }
+
+.metrics.embedded > .metric { background: #ffffff !important; border: 1px solid #cbd5e1 !important; color: #111827 !important; }
+
+.metrics.embedded > .metric .metric-label, .metrics.embedded > .metric .metric-value { color: #111827 !important; }
